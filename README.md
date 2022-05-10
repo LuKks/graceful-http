@@ -79,7 +79,8 @@ It's needed because there could be clients not respecting the `Connection` heade
 ```javascript
 const close = graceful(server, {
   endIdle: 15000,
-  forceEnd: 60000
+  forceEnd: 60000,
+  loopResponses: true
 })
 ```
 
@@ -89,6 +90,11 @@ Keep `endIdle` higher than the `keep-alive` timeout.
 
 `forceEnd` will end sockets even with pending requests.\
 You must set `forceEnd` higher than the most longer request.
+
+`loopResponses` it's a tweak where automatically handles pending requests\
+to more quickly free sockets from the server, this way you do less code.\
+Disable it if you have a fifty thousand of requests and care about latency.\
+This only affects at the moment of `close()`.
 
 ## Credits to Dashlane
 https://blog.dashlane.com/implementing-nodejs-http-graceful-shutdown/
