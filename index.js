@@ -73,6 +73,9 @@ function graceful (server, opts = {}) {
 
   function close () {
     return new Promise((resolve, reject) => {
+      const srv = servers.get(server)
+      servers.set(server, { ...srv, closing: true })
+
       for (const [res] of responses) {
         setHeaderConnection(res)
       }
@@ -82,9 +85,6 @@ function graceful (server, opts = {}) {
         timeoutIdle = setTimeout(() => endAllConnections({ force: false }), timeoutToTryEndIdle)
       }
       const timeoutForce = setTimeout(() => endAllConnections({ force: true }), forcedStopTimeout)
-
-      const srv = servers.get(server)
-      servers.set(server, { ...srv, closing: true })
 
       server.close(function (error) {
         clearTimeout(timeoutIdle)
