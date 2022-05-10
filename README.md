@@ -10,7 +10,8 @@ It allows you to handle all requests gracefully in case of a shutdown.\
 This way you don't destroy requests in the middle of something.
 
 For zero-downtime you must have multiple processes (PM2 cluster or something else).\
-This library will only allow all requests to finish without interruption.
+This library will only allow all requests to finish without interruption.\
+It also end sockets gracefully using the `Connection` header.
 
 ## Usage
 ```javascript
@@ -31,10 +32,10 @@ process.once('SIGINT', async function () {
   try {
     await close()
     // + here close database, etc
-    // process.exit(0)
+    process.exit(0)
   } catch (error) {
     console.error(error)
-    // process.exit(1)
+    process.exit(1)
   }
 })
 ```
@@ -54,7 +55,7 @@ app.get('/long-request', async function (req, res) {
 ```
 
 ## Long request (more than 60s)
-In case you have a really long request, like long-polling.\
+In case you have a really long request, like long-polling:\
 You can check in real-time if the server is closing,\
 this way you can send the response early.
 
