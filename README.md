@@ -61,6 +61,7 @@ this way you can send the response early.
 ```javascript
 app.get('/long-polling', async function (req, res) {
   for (let i = 0; i < 60; i++) {
+    // checks if server is closing
     if (graceful.check(res)) {
       break
     }
@@ -92,7 +93,7 @@ Keep `endIdle` higher than the `keep-alive` timeout.
 You must set `forceEnd` higher than the most longer request.
 
 Remember, in case of a really long request like long-polling:\
-You can use `graceful.check(res)` to gracefully end the request early.
+You can use `graceful.check(res)` to end the request early.
 
 ## Credits to Dashlane
 https://blog.dashlane.com/implementing-nodejs-http-graceful-shutdown/
