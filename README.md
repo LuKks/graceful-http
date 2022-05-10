@@ -53,9 +53,8 @@ app.get('/long-request', async function (req, res) {
 ```
 
 ## Long request (more than 60s)
-In case you have a really long request, like long-polling:\
-You can check in real-time if the server is closing,\
-this way you can send the response early.
+Use `graceful.check(res)` to know if the server is closing,\
+this way you can send the response early. Useful for long-polling.
 
 ```javascript
 app.get('/long-polling', async function (req, res) {
@@ -90,9 +89,6 @@ Keep `endIdle` higher than the `keep-alive` timeout.
 
 `forceEnd` will end sockets even with pending requests.\
 You must set `forceEnd` higher than the most longer request.
-
-Remember, in case of a really long request like long-polling:\
-You can use `graceful.check(res)` to end the request early.
 
 ## Credits to Dashlane
 https://blog.dashlane.com/implementing-nodejs-http-graceful-shutdown/
