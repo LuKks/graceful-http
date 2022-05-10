@@ -1,6 +1,6 @@
 # graceful-http
 
-HTTP server graceful shutdown, needed to achieve zero-downtime doing restarts.
+HTTP graceful shutdown, needed to achieve zero-downtime doing restarts.
 
 ```
 npm i graceful-http
