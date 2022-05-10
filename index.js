@@ -41,6 +41,15 @@ function graceful (server, opts = {}) {
     })
   }
 
+  function setHeaderConnection (res) {
+    const srv = servers.get(res.socket.server)
+
+    if (srv.closing && !res.headersSent) {
+      res.setHeader('connection', 'close')
+      srv.hasRepliedClosedConnectionForSocket.set(res.socket, true)
+    }
+  }
+
   function checkAndCloseConnection (req) {
     const srv = servers.get(req.socket.server)
     const socketPendingRequests = reqCountPerSocket.get(req.socket) - 1
@@ -94,17 +103,7 @@ function graceful (server, opts = {}) {
   return close
 }
 
-function setHeaderConnection (res) {
-  const srv = servers.get(res.socket.server)
-  const hasSuggestedClosingConnection = srv.hasRepliedClosedConnectionForSocket.get(res.socket)
-
-  if (srv.closing && !res.headersSent && !hasSuggestedClosingConnection) {
-    res.setHeader('connection', 'close')
-    srv.hasRepliedClosedConnectionForSocket.set(res.socket, true)
-  }
-}
-
-graceful.isClosing = function (obj) {
+graceful.check = function (obj) {
   const type = obj.constructor.name
   let server
 
@@ -118,19 +117,6 @@ graceful.isClosing = function (obj) {
     throw new Error(type + ' is not supported. Should be one of: Socket, IncomingMessage or ServerResponse')
   }
 
-  return servers.get(server).closing
-}
-
-graceful.check = function (server) {
-  const isClosing = graceful.isClosing(server)
-
-  if (isClosing) {
-    const type = server.constructor.name
-    if (type === 'ServerResponse') {
-      const res = server
-      setHeaderConnection(res)
-    }
-  }
-
-  return isClosing
+  const srv = servers.get(server)
+  return srv.closing
 }
