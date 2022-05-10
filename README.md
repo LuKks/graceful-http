@@ -54,7 +54,7 @@ app.get('/long-request', async function (req, res) {
 
 ## Long request (more than 60s)
 Use `graceful.check(res)` to know if the server is closing,\
-this way you can send the response early. Useful for long-polling.
+this way you can send the response early. Useful for `long-polling`.
 
 ```javascript
 app.get('/long-polling', async function (req, res) {
