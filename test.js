@@ -74,7 +74,6 @@ tape('request with keep-alive, later close() and again another request', async f
   t.ok(isAround(Date.now() - started, 1000), 'Server took the less than the default keep-alive time to close')
 })
 
-
 tape('close() in the middle of a slow request (loopResponses enabled)', async function (t) {
   const server = createExpressApp()
   const close = graceful(server)
@@ -229,7 +228,7 @@ function createExpressApp () {
 
 function requester () {
   const httpAgent = new http.Agent({
-    keepAlive: true,
+    keepAlive: true
     // keepAliveMsecs: 5000
   })
 
