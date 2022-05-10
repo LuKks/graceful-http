@@ -93,8 +93,8 @@ You must set `forceEnd` higher than the most longer request.
 
 `loopResponses` it's a tweak where automatically handles pending requests\
 to more quickly free sockets from the server, this way you do less code.\
-Disable it if you have a fifty thousand of requests and care about latency.\
-This only affects at the moment of `close()`.
+Disable it if you have a concurrent fifty thousand of requests and care about latency.\
+This latency only affects at the moment of `close()`.
 
 ## Credits to Dashlane
 https://blog.dashlane.com/implementing-nodejs-http-graceful-shutdown/
