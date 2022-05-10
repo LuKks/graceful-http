@@ -6,12 +6,10 @@ HTTP graceful shutdown, needed to achieve zero-downtime doing restarts.
 npm i graceful-http
 ```
 
-It allows you to handle all requests gracefully in case of a shutdown.\
-This way you don't destroy requests in the middle of something.
-
-For zero-downtime you must have multiple processes (PM2 cluster or something else).\
-This library will only allow all requests to finish without interruption.\
+Allows all requests to finish without interruption.\
 It also end sockets gracefully using the `Connection` header.
+
+For zero-downtime you must have more processes (PM2 cluster or something else).
 
 ## Usage
 ```javascript
