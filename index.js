@@ -33,11 +33,10 @@ function graceful (server, opts = {}) {
     reqCountPerSocket.set(req.socket, currentCount + 1)
 
     responses.set(res, true)
-
     setHeaderConnection(res)
+    res.on('close', () => responses.delete(res))
 
     res.on('finish', () => {
-      responses.delete(res)
       checkAndCloseConnection(req)
     })
   }
