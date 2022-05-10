@@ -23,21 +23,14 @@ app.get('/', function (req, res) {
   res.send('ok')
 })
 
-const server = app.listen(3000, function () {
-  console.log('listening', server.address())
-})
+const server = app.listen(3000)
 
 const close = graceful(server)
 
 process.once('SIGINT', async function () {
-  console.log('closing')
-
   try {
     await close()
-    console.log('closed')
-
     // + here close database, etc
-
     // process.exit(0)
   } catch (error) {
     console.error(error)
@@ -82,6 +75,24 @@ app.get('/long-polling', async function (req, res) {
 This check is necessary because `graceful-http` has an internal timeout.\
 After 30s of `close()` it forcefully close all sockets.\
 It's needed because there could be clients not respecting the `Connection` header.
+
+## Default configuration
+```javascript
+const close = graceful(server, {
+  endIdle: 15000,
+  forceEnd: 30000
+})
+```
+
+`endIdle` will end sockets with no pending requests.\
+Default Node HTTP `keep-alive` timeout is `5000` ms.\
+Keep `endIdle` higher than the `keep-alive` timeout.
+
+`forceEnd` will end sockets even with pending requests.\
+You must set `forceEnd` higher than the most longer request.
+
+Remember, in case of a really long request like long-polling:\
+You can use `graceful.check(res)` to gracefully end the request early.
 
 ## Credits to Dashlane
 https://blog.dashlane.com/implementing-nodejs-http-graceful-shutdown/
