@@ -9,7 +9,7 @@ const servers = new WeakMap()
 
 function graceful (server, opts = {}) {
   const timeoutToTryEndIdle = opts.endIdle === undefined ? 15000 : opts.endIdle
-  const forcedStopTimeout = opts.forceEnd === undefined ? 30000 : opts.forceEnd
+  const forcedStopTimeout = opts.forceEnd === undefined ? 60000 : opts.forceEnd
   const reqCountPerSocket = new Map()
   const responses = new Map()
 

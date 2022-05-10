@@ -39,7 +39,7 @@ process.once('SIGINT', async function () {
 })
 ```
 
-## Normal request (less than 30s)
+## Normal request (less than 60s)
 Let's say you have a request that always takes several seconds.\
 All pending requests are automatically handled for you.
 
@@ -53,7 +53,7 @@ app.get('/long-request', async function (req, res) {
 })
 ```
 
-## Long request (more than 30s)
+## Long request (more than 60s)
 In case you have a really long request, like long-polling.\
 You can check in real-time if the server is closing,\
 this way you can send the response early.
@@ -74,14 +74,14 @@ app.get('/long-polling', async function (req, res) {
 ```
 
 This check is necessary because `graceful-http` has an internal timeout.\
-After 30s of `close()` it forcefully close all sockets.\
+After 60s of `close()` it forcefully close all sockets.\
 It's needed because there could be clients not respecting the `Connection` header.
 
 ## Default configuration
 ```javascript
 const close = graceful(server, {
   endIdle: 15000,
-  forceEnd: 30000
+  forceEnd: 60000
 })
 ```
 
