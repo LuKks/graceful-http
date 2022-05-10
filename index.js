@@ -32,9 +32,10 @@ function graceful (server, opts = {}) {
     const currentCount = reqCountPerSocket.get(req.socket)
     reqCountPerSocket.set(req.socket, currentCount + 1)
 
+    responses.set(res, true)
+
     setHeaderConnection(res)
 
-    responses.set(res, true)
     res.on('finish', () => {
       responses.delete(res)
       checkAndCloseConnection(req)
@@ -47,6 +48,7 @@ function graceful (server, opts = {}) {
     if (srv.closing && !res.headersSent) {
       res.setHeader('connection', 'close')
       srv.hasRepliedClosedConnectionForSocket.set(res.socket, true)
+      responses.delete(res)
     }
   }
 
