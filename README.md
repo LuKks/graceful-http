@@ -58,7 +58,7 @@ this way you can send the response early. Useful for long-polling.
 
 ```javascript
 app.get('/long-polling', async function (req, res) {
-  for (let i = 0; i < 60; i++) {
+  for (let i = 0; i < 75; i++) {
     // checks if server is closing
     if (graceful.check(res)) {
       break
