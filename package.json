@@ -3,14 +3,16 @@
   "version": "0.1.0",
   "description": "HTTP graceful shutdown, needed to achieve zero-downtime doing restarts.",
   "main": "index.js",
-  "dependencies": {},
   "devDependencies": {
+    "axios": "^0.27.2",
     "express": "^4.18.1",
-    "graceful-goodbye": "^1.0.0",
-    "standard": "^17.0.0"
+    "standard": "^17.0.0",
+    "tape": "^5.5.3"
   },
   "scripts": {
-    "test": "standard"
+    "test": "standard && tape test.js",
+    "tape": "tape test.js",
+    "lint": "standard"
   },
   "repository": {
     "type": "git",
