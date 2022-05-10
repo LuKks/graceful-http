@@ -92,7 +92,7 @@ Keep `endIdle` higher than the `keep-alive` timeout.
 You must set `forceEnd` higher than the most longer request.
 
 `loopResponses` it's a tweak where automatically handles pending requests\
-to more quickly free sockets from the server, this way you do less code.\
+to more quickly free sockets from the server.\
 Disable it if you have like fifty thousand of requests concurrently and care about latency.\
 This latency only affects at the moment of `close()`.
 
