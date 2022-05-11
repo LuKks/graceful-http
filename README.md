@@ -30,10 +30,10 @@ process.once('SIGINT', async function () {
   try {
     await close()
     // + here close database, etc
-    process.exit(0)
+    // process.exit(0) // pm2 cluster requires to exit the process
   } catch (error) {
     console.error(error)
-    process.exit(1)
+    // process.exit(1)
   }
 })
 ```
