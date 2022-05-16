@@ -60,7 +60,7 @@ this way you can send the response early. Useful for long-polling.
 app.get('/long-polling', async function (req, res) {
   for (let i = 0; i < 75; i++) {
     // checks if server is closing
-    if (graceful.check(res)) {
+    if (graceful.check(res)) { // Koa: ctx.res
       break
     }
 
@@ -74,6 +74,9 @@ app.get('/long-polling', async function (req, res) {
 This check is necessary because `graceful-http` has an internal timeout.\
 After 60s of `close()` it forcefully close all sockets.\
 It's needed because there could be clients not respecting the `Connection` header.
+
+Express: `graceful.check(res)`\
+Koa: `graceful.check(ctx.res)`
 
 ## Default configuration
 ```javascript
