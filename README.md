@@ -98,6 +98,8 @@ to more quickly free sockets from the server.\
 Disable it if you have like fifty thousand of requests concurrently and care about latency.\
 This one time minimal latency is at the moment of `close()`.
 
+It's only for HTTP, and not HTTPS either HTTP2.
+
 ## Credits to Dashlane
 https://blog.dashlane.com/implementing-nodejs-http-graceful-shutdown/
 
