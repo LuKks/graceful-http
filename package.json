@@ -1,6 +1,6 @@
 {
   "name": "graceful-http",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "HTTP graceful shutdown, needed to achieve zero-downtime doing restarts.",
   "main": "index.js",
   "devDependencies": {
