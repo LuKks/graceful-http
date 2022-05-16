@@ -23,7 +23,6 @@ app.get('/', function (req, res) {
 })
 
 const server = app.listen(3000)
-
 const close = graceful(server)
 
 process.once('SIGINT', async function () {
