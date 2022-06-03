@@ -35,7 +35,7 @@ function graceful (server, opts = {}) {
 
     responses.set(res, true)
     setHeaderConnection(res)
-    res.on('close', () => responses.delete(res))
+    res.once('close', () => responses.delete(res))
 
     res.on('finish', () => {
       checkAndCloseConnection(req)
