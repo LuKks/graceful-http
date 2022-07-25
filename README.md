@@ -2,6 +2,8 @@
 
 HTTP graceful shutdown, needed to achieve zero-downtime doing restarts.
 
+![](https://img.shields.io/npm/v/graceful-http.svg) ![](https://img.shields.io/npm/dt/graceful-http.svg) ![](https://img.shields.io/badge/tested_with-tape-e683ff.svg) ![](https://img.shields.io/github/license/LuKks/graceful-http.svg)
+
 ```
 npm i graceful-http
 ```
